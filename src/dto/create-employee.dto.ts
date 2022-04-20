@@ -21,5 +21,5 @@ export class CreateEmployeeDto {
 
     @IsDate()
     @Type(() => Date)
-    birthday: string;
+    birthday: Date;
 }

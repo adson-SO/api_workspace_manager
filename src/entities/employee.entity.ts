@@ -15,7 +15,7 @@ export class Employee {
     office: string;
 
     @Column()
-    birthday: string;
+    birthday: Date;
 
     @Column()
     situation: string;
