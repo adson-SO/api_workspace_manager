@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('employees')
 export class Employee {
     @PrimaryGeneratedColumn()
     employee_id: number;
@@ -19,4 +19,10 @@ export class Employee {
 
     @Column()
     situation: string;
+
+    constructor() {
+        if(!this.situation) {
+            this.situation = 'activate';
+        }
+    }
 }

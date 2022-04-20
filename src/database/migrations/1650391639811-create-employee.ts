@@ -11,7 +11,8 @@ export class createEmployee1650391639811 implements MigrationInterface {
                         name: 'employee_id',
                         type: 'int',
                         isPrimary: true,
-                        isGenerated: true
+                        isGenerated: true,
+                        generationStrategy: 'increment'
                     },
                     {
                         name: 'name',
