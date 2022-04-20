@@ -32,7 +32,7 @@ export class createEmployee1650391639811 implements MigrationInterface {
                     },
                     {
                         name: 'birthday',
-                        type: 'varchar',
+                        type: 'date',
                         isNullable: false
                     },
                     {

@@ -1,10 +1,10 @@
 import { Type } from "class-transformer";
-import { IsAlphanumeric, IsDate, IsDefined, IsIn, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { IsAlphanumeric, IsDate, IsDateString, IsDefined, IsIn, IsNotEmpty, IsString, MinLength } from "class-validator";
 
 export class CreateEmployeeDto {
     @IsString()
     @MinLength(3)
-    @IsDefined()
+    @IsNotEmpty()
     name: string;
 
     @IsString()
@@ -21,5 +21,6 @@ export class CreateEmployeeDto {
 
     @IsDate()
     @Type(() => Date)
+    @IsNotEmpty()
     birthday: Date;
 }

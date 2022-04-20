@@ -9,18 +9,22 @@ import { Helpers } from '../helpers/helpers';
 export class EmployeesService {
     constructor(@InjectRepository(Employee) private employeesRepository: Repository<Employee>) {}
 
-    async create(payload: CreateEmployeeDto): Promise<Employee> {
-        const isCpfValid = Helpers.validateCpf(payload.cpf);
-
+    async create({ name, cpf, office, birthday }: CreateEmployeeDto): Promise<Employee> {
+        const isCpfValid = Helpers.validateCpf(cpf);
         if(isCpfValid === false) {
             throw new BadRequestException('Invalid CPF');
         }
 
-        const employee = this.employeesRepository.create(payload);
-
+        const employee = this.employeesRepository.create({ name, cpf, office, birthday });
         await this.employeesRepository.save(employee);
 
         const result = Helpers.formatCpf(employee);
+
+        return result;
+    }
+
+    async findAll(): Promise<Employee[]> {
+        const result = await this.employeesRepository.find();
 
         return result;
     }
