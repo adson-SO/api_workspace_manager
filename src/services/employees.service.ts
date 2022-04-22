@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateEmployeeDto } from 'src/dto/create-employee.dto';
 import { Employee } from 'src/entities/employee.entity';
@@ -32,10 +32,22 @@ export class EmployeesService {
         if(Object.keys(query).length === 0) {
             query = {};
         }
-        
+
         const employees = await this.employeesRepository.find(query);
 
         const result = employees.map(employee => Helpers.formatCpf(employee));
+
+        return result;
+    }
+
+    async findOne(id: string): Promise<Employee> {
+        const employee = await this.employeesRepository.findOne(id);
+
+        if(!employee) {
+            throw new NotFoundException();
+        }
+
+        const result = Helpers.formatCpf(employee);
 
         return result;
     }
