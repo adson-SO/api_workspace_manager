@@ -51,4 +51,24 @@ export class EmployeesService {
 
         return result;
     }
+
+    async update(id: string, { name, cpf, office, birthday, situation }: any): Promise<Employee> {
+        const employee = await this.employeesRepository.findOne(id);
+
+        if(!employee) {
+            throw new NotFoundException();
+        }
+
+        employee.name = name ? name : employee.name;
+        employee.cpf = cpf ? cpf : employee.cpf;
+        employee.office = office ? office : employee.office;
+        employee.birthday = birthday ? birthday : employee.birthday;
+        employee.situation = situation ? situation : employee.situation;
+
+        await this.employeesRepository.save(employee);
+
+        const result = Helpers.formatCpf(employee);
+
+        return result;
+    }
 }
