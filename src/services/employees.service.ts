@@ -76,4 +76,8 @@ export class EmployeesService {
 
         return result;
     }
+
+    async delete(id: string): Promise<void> {
+        await this.employeesRepository.delete(id);
+    }
 }

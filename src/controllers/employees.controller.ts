@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query } from '@nestjs/common';
 import { CreateEmployeeDto } from 'src/dto/create-employee.dto';
 import { UpdateEmployeeDto } from 'src/dto/update-employee.dto';
 import { Employee } from 'src/entities/employee.entity';
@@ -67,5 +67,11 @@ export class EmployeesController {
             birthday: result.birthday,
             situation: result.situation
         };
+    }
+
+    @Delete(':id')
+    @HttpCode(204)
+    async delete(@Param('id') id: string): Promise<void> {
+        return this.employeesService.delete(id);
     }
 }
