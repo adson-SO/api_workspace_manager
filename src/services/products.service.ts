@@ -23,4 +23,14 @@ export class ProductsService {
         
         return result;
     }
+
+    async findAll(query: any): Promise<Product[]> {
+        if(Object.keys(query).length === 0) {
+            query = {};
+        }
+
+        const result = await this.productsRepository.find(query);
+
+        return result;
+    }
 }
