@@ -14,7 +14,7 @@ export class Employee {
     @Column()
     office: string;
 
-    @Column({ default: () => 'CURRENT_TIMESTAMP(6)' })
+    @Column()
     birthday: Date;
 
     @Column()
