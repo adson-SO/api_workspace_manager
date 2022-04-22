@@ -27,8 +27,8 @@ export class EmployeesController {
     }
 
     @Get()
-    async findAll(): Promise<Employee[]> {
-        const result = await this.employeesService.findAll();
+    async findAll(@Query() query: any): Promise<Employee[]> {
+        const result = await this.employeesService.findAll(query);
 
         return result.map(employee => employee = {
             employee_id: employee.employee_id,

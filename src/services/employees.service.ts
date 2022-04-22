@@ -28,8 +28,12 @@ export class EmployeesService {
         return result;
     }
 
-    async findAll(): Promise<Employee[]> {
-        const employees = await this.employeesRepository.find();
+    async findAll(query: any): Promise<Employee[]> {
+        if(Object.keys(query).length === 0) {
+            query = {};
+        }
+        
+        const employees = await this.employeesRepository.find(query);
 
         const result = employees.map(employee => Helpers.formatCpf(employee));
 

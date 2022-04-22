@@ -1,5 +1,5 @@
 import { Transform, Type } from "class-transformer";
-import { IsAlphanumeric, IsDate, IsIn, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { IsAlphanumeric, IsDate, IsIn, IsNotEmpty, IsString, Matches, MinLength } from "class-validator";
 
 export class CreateEmployeeDto {
     @IsString()
