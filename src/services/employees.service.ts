@@ -15,6 +15,11 @@ export class EmployeesService {
             throw new BadRequestException('Invalid CPF');
         }
 
+        const cpfExists = await this.employeesRepository.findOne({ cpf: cpf });
+        if(cpfExists) {
+            throw new BadRequestException('CPF already exists');
+        }
+
         const employee = this.employeesRepository.create({ name, cpf, office, birthday });
         await this.employeesRepository.save(employee);
 
@@ -24,7 +29,9 @@ export class EmployeesService {
     }
 
     async findAll(): Promise<Employee[]> {
-        const result = await this.employeesRepository.find();
+        const employees = await this.employeesRepository.find();
+
+        const result = employees.map(employee => Helpers.formatCpf(employee));
 
         return result;
     }

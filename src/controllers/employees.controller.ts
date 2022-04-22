@@ -37,6 +37,6 @@ export class EmployeesController {
             office: employee.office,
             birthday: employee.birthday,
             situation: employee.situation
-        })
+        });
     }
 }
