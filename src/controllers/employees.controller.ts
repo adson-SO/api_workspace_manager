@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CreateEmployeeDto } from 'src/dto/create-employee.dto';
+import { UpdateEmployeeDto } from 'src/dto/update-employee.dto';
 import { Employee } from 'src/entities/employee.entity';
 import { EmployeesService } from 'src/services/employees.service';
 
@@ -55,7 +56,7 @@ export class EmployeesController {
     }
 
     @Put(':id')
-    async update(@Param('id') id: string, @Body() { name, cpf, office, birthday, situation }: any): Promise<Employee> {
+    async update(@Param('id') id: string, @Body() { name, cpf, office, birthday, situation }: UpdateEmployeeDto): Promise<Employee> {
         const result = await this.employeesService.update(id, { name, cpf, office, birthday, situation });
 
         return {

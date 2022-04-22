@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateEmployeeDto } from 'src/dto/create-employee.dto';
+import { UpdateEmployeeDto } from 'src/dto/update-employee.dto';
 import { Employee } from 'src/entities/employee.entity';
 import { Repository } from 'typeorm';
 import { Helpers } from '../helpers/helpers';
@@ -52,11 +53,15 @@ export class EmployeesService {
         return result;
     }
 
-    async update(id: string, { name, cpf, office, birthday, situation }: any): Promise<Employee> {
+    async update(id: string, { name, cpf, office, birthday, situation }: UpdateEmployeeDto): Promise<Employee> {
         const employee = await this.employeesRepository.findOne(id);
-
         if(!employee) {
             throw new NotFoundException();
+        }
+
+        const isCpfValid = Helpers.validateCpf(employee.cpf);
+        if(isCpfValid === false) {
+            throw new BadRequestException('Invalid CPF');
         }
 
         employee.name = name ? name : employee.name;
