@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsString, MinLength, IsIn, IsOptional } from "class-validator";
+import { IsString, MinLength, IsIn, IsOptional, IsInt } from "class-validator";
 
 export class QueryEmployeeDto {
     @IsString()

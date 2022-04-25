@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProductDto } from 'src/dto/create-product.dto';
+import { QueryProductDto } from 'src/dto/query-product.dto';
 import { Employee } from 'src/entities/employee.entity';
 import { Product } from 'src/entities/product.entity';
 import { Repository } from 'typeorm';
@@ -24,12 +25,14 @@ export class ProductsService {
         return result;
     }
 
-    async findAll(query: any): Promise<Product[]> {
+    async findAll(query: QueryProductDto): Promise<Product[]> {
         if(Object.keys(query).length === 0) {
             query = {};
         }
 
-        const result = await this.productsRepository.find(query);
+        const result = await this.productsRepository.find({
+            where: query
+        });
 
         return result;
     }

@@ -39,7 +39,9 @@ export class EmployeesService {
             Object.assign(query, { name: Like('%'+query.name+'%') })
         }
         
-        const employees = await this.employeesRepository.find(query);
+        const employees = await this.employeesRepository.find({
+            where: query
+        });
 
         const result = employees.map(employee => Helpers.formatCpf(employee));
 

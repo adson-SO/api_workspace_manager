@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { CreateEmployeeDto } from 'src/dto/create-employee.dto';
 import { QueryEmployeeDto } from 'src/dto/query-employee.dto';
 import { UpdateEmployeeDto } from 'src/dto/update-employee.dto';
@@ -39,7 +39,7 @@ export class EmployeesController {
             office: employee.office,
             birthday: employee.birthday,
             situation: employee.situation
-        });
+        })
     }
 
     @Get(':id')

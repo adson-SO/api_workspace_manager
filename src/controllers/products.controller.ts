@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { CreateProductDto } from 'src/dto/create-product.dto';
+import { QueryProductDto } from 'src/dto/query-product.dto';
 import { Product } from 'src/entities/product.entity';
 import { ProductsService } from 'src/services/products.service';
 
@@ -21,7 +22,7 @@ export class ProductsController {
     }
 
     @Get()
-    async findAll(@Query() query: any): Promise<Product[]> {
+    async findAll(@Query() query: QueryProductDto): Promise<Product[]> {
         const result = await this.productsService.findAll(query);
 
         return result;
