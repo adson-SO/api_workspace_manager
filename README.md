@@ -151,7 +151,67 @@ Exemplo de resposta:
 }
 ```
 
-### Endpoint para deletar um cliente pelo id:
+### Endpoint para deletar um funcionário pelo id:
 > DELETE - `http://localhost:3000/api/v1/employee/:id`
 
 Se a operação for bem sucedida o corpo da resposta estará vazio.
+
+### Endpoint para cadastrar um produto:
+> POST - `http://localhost:3000/api/v1/product`
+
+Exemplo de payload:
+
+```json
+{
+    "name": "notebook lenovo",
+    "category": "eletronico",
+    "price": 12.32,
+    "employee_id": 2
+}
+```
+
+Exemplo de resposta:
+
+```json
+{
+    "product_id": 5,
+    "name": "notebook lenovo",
+    "category": "eletronico",
+    "price": 12.32,
+    "employee_id": 2
+}
+```
+
+### Endpoint para listar todos os produtos cadastrados:
+> GET - `http://localhost:3000/api/v1/product`
+
+Exemplo de resposta:
+
+```json
+[
+    {
+        "product_id": 1,
+        "name": "notebook dell",
+        "category": "eletronico",
+        "price": 12.32,
+        "employee_id": 2
+    },
+    {
+        "product_id": 4,
+        "name": "notebook lenovo",
+        "category": "eletronico",
+        "price": 12.32,
+        "employee_id": 2
+    }
+]
+```
+
+Este endpoint também permite a busca por nome, categoria, preço e id do funcionário, através de query params. 
+
+Exemplos de busca por query params:
+
+```bash
+http://localhost:3000/api/v1/employee?name=notebook+lenovo
+
+http://localhost:3000/api/v1/employee?category=eletronico
+```
