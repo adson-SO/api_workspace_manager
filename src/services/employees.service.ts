@@ -1,9 +1,10 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateEmployeeDto } from 'src/dto/create-employee.dto';
+import { QueryEmployeeDto } from 'src/dto/query-employee.dto';
 import { UpdateEmployeeDto } from 'src/dto/update-employee.dto';
 import { Employee } from 'src/entities/employee.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { Helpers } from '../helpers/helpers';
 
 @Injectable()
@@ -29,11 +30,15 @@ export class EmployeesService {
         return result;
     }
 
-    async findAll(query: any): Promise<Employee[]> {
+    async findAll(query: QueryEmployeeDto): Promise<Employee[]> {
         if(Object.keys(query).length === 0) {
             query = {};
         }
 
+        if(query.name) {
+            Object.assign(query, { name: Like('%'+query.name+'%') })
+        }
+        
         const employees = await this.employeesRepository.find(query);
 
         const result = employees.map(employee => Helpers.formatCpf(employee));
