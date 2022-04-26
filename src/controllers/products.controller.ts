@@ -1,5 +1,5 @@
 import { Body, Controller, Get, ParseIntPipe, Post, Query } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CreateProductDto } from 'src/dto/create-product.dto';
 import { QueryProductDto } from 'src/dto/query-product.dto';
 import { Product } from 'src/entities/product.entity';
@@ -12,6 +12,7 @@ export class ProductsController {
     constructor(private readonly productsService: ProductsService) {}
 
     @ApiCreatedResponse({ type: Product })
+    @ApiBadRequestResponse()
     @Post()
     async create(@Body() { name, category, price, employee_id }: CreateProductDto): Promise<Product> {
         const result = await this.productsService.create({ name, category, price, employee_id });
