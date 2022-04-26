@@ -61,6 +61,7 @@ Exemplo de payload:
     "birthday": "05/17/1994"
 }
 ```
+(Observação: por enquanto a aplicação aceita datas apenas no formato MM/DD/YYYY)
 
 Exemplo de resposta:
 
@@ -137,6 +138,7 @@ Exemplo de payload:
     "situation": "deactivate"
 }
 ```
+(Observação: por enquanto a aplicação aceita datas apenas no formato MM/DD/YYYY)
 
 Exemplo de resposta:
 
