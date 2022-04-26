@@ -59,4 +59,32 @@ export class Helpers {
         const result = Object.assign(employee, { cpf: cpf });
         return result;
     }
+
+    static ageValidator(birthday: Date): boolean {
+        const today = new Date();
+        const birthdate = new Date(birthday);
+
+        const currentYear = today.getFullYear();
+        const birthYear = birthdate.getFullYear();
+
+        const currentMonth = today.getMonth() + 1;
+        const birthMonth = birthdate.getMonth() + 1;
+
+        const currentDay = today.getDate();
+        const birthDay = birthdate.getDate();
+
+        if(currentYear - birthYear > 18) {
+            return true;
+        }
+
+        if(currentYear - birthYear === 18 && birthMonth < currentMonth) {
+            return true;
+        }
+
+        if(birthMonth === currentMonth && birthDay <= currentDay) {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -21,14 +21,14 @@ export class Employee {
 
     @ApiProperty()
     @Column({ type: 'date' })
-    birthday: string | Date;
+    birthday: Date;
 
     @ApiProperty()
     @Column()
     situation: string;
 
     constructor() {
-        if(!this.situation) {
+        if (!this.situation) {
             this.situation = 'activate';
         }
     }

@@ -1,8 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsAlphanumeric, IsIn, IsNotEmpty, IsString, MinLength } from "class-validator";
-import moment from "moment";
-
 export class CreateEmployeeDto {
     @ApiProperty()
     @IsString()
@@ -25,7 +23,7 @@ export class CreateEmployeeDto {
     readonly office: string;
 
     @ApiProperty()
-    @Type((birthday) => Date)
+    @Type(() => Date)
     @IsNotEmpty()
-    readonly birthday: string | Date;
+    birthday: Date;
 }

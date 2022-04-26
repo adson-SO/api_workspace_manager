@@ -22,6 +22,11 @@ export class EmployeesService {
             throw new BadRequestException('CPF already exists');
         }
 
+        const isOver18 = Helpers.ageValidator(birthday);
+        if(!isOver18) {
+            throw new BadRequestException('You must be over 18 years old');
+        }
+
         const employee = this.employeesRepository.create({ name, cpf, office, birthday });
         await this.employeesRepository.save(employee);
 
@@ -66,9 +71,14 @@ export class EmployeesService {
             throw new NotFoundException();
         }
 
-        const isCpfValid = Helpers.validateCpf(employee.cpf);
-        if(isCpfValid === false) {
-            throw new BadRequestException('Invalid CPF');
+        const cpfExists = await this.employeesRepository.findOne({ cpf: cpf });
+        if(cpfExists) {
+            throw new BadRequestException('CPF already exists');
+        }
+
+        const isOver18 = Helpers.ageValidator(birthday);
+        if(!isOver18) {
+            throw new BadRequestException('You must be over 18 years old');
         }
 
         employee.name = name ? name : employee.name;
