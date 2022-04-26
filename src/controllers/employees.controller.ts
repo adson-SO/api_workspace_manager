@@ -1,14 +1,17 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CreateEmployeeDto } from 'src/dto/create-employee.dto';
 import { QueryEmployeeDto } from 'src/dto/query-employee.dto';
 import { UpdateEmployeeDto } from 'src/dto/update-employee.dto';
 import { Employee } from 'src/entities/employee.entity';
 import { EmployeesService } from 'src/services/employees.service';
 
+@ApiTags('Employees')
 @Controller('api/v1/employee')
 export class EmployeesController {
     constructor(private readonly employeesService: EmployeesService) { }
 
+    @ApiCreatedResponse({ type: Employee })
     @Post()
     async create(@Body() { name, cpf, office, birthday }: CreateEmployeeDto): Promise<Employee> {
         const result = await this.employeesService.create({
@@ -28,6 +31,7 @@ export class EmployeesController {
         };
     }
 
+    @ApiOkResponse({ type: Employee, isArray: true })
     @Get()
     async findAll(@Query() query: QueryEmployeeDto): Promise<Employee[]> {
         const result = await this.employeesService.findAll(query);
@@ -42,6 +46,7 @@ export class EmployeesController {
         })
     }
 
+    @ApiOkResponse({ type: Employee })
     @Get(':id')
     async findOne(@Param('id') id: string): Promise<Employee> {
         const result = await this.employeesService.findOne(id);
@@ -56,6 +61,7 @@ export class EmployeesController {
         };
     }
 
+    @ApiOkResponse({ type: Employee })
     @Put(':id')
     async update(@Param('id') id: string, @Body() { name, cpf, office, birthday, situation }: UpdateEmployeeDto): Promise<Employee> {
         const result = await this.employeesService.update(id, { name, cpf, office, birthday, situation });
@@ -70,6 +76,7 @@ export class EmployeesController {
         };
     }
 
+    @ApiNoContentResponse()
     @Delete(':id')
     @HttpCode(204)
     async delete(@Param('id') id: string): Promise<void> {
