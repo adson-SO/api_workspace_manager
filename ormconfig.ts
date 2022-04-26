@@ -11,7 +11,8 @@ const config: MysqlConnectionOptions = {
     migrations: ['dist/src/database/migrations/*.js'],
     cli: {
         migrationsDir: 'src/database/migrations'
-    }
+    },
+    dateStrings: true
 };
 
 export default config;

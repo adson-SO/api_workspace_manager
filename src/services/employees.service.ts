@@ -48,7 +48,7 @@ export class EmployeesService {
         return result;
     }
 
-    async findOne(id: string): Promise<Employee> {
+    async findOne(id: number): Promise<Employee> {
         const employee = await this.employeesRepository.findOne(id);
 
         if(!employee) {
@@ -60,7 +60,7 @@ export class EmployeesService {
         return result;
     }
 
-    async update(id: string, { name, cpf, office, birthday, situation }: UpdateEmployeeDto): Promise<Employee> {
+    async update(id: number, { name, cpf, office, birthday, situation }: UpdateEmployeeDto): Promise<Employee> {
         const employee = await this.employeesRepository.findOne(id);
         if(!employee) {
             throw new NotFoundException();
@@ -84,7 +84,7 @@ export class EmployeesService {
         return result;
     }
 
-    async delete(id: string): Promise<void> {
+    async delete(id: number): Promise<void> {
         await this.employeesRepository.delete(id);
     }
 }

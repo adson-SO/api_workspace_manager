@@ -50,7 +50,7 @@ export class EmployeesController {
     @ApiOkResponse({ type: Employee })
     @ApiNotFoundResponse()
     @Get(':id')
-    async findOne(@Param('id') id: string): Promise<Employee> {
+    async findOne(@Param('id') id: number): Promise<Employee> {
         const result = await this.employeesService.findOne(id);
 
         return {
@@ -67,7 +67,7 @@ export class EmployeesController {
     @ApiBadRequestResponse()
     @ApiNotFoundResponse()
     @Put(':id')
-    async update(@Param('id') id: string, @Body() { name, cpf, office, birthday, situation }: UpdateEmployeeDto): Promise<Employee> {
+    async update(@Param('id') id: number, @Body() { name, cpf, office, birthday, situation }: UpdateEmployeeDto): Promise<Employee> {
         const result = await this.employeesService.update(id, { name, cpf, office, birthday, situation });
 
         return {
@@ -84,7 +84,7 @@ export class EmployeesController {
     @ApiNotFoundResponse()
     @Delete(':id')
     @HttpCode(204)
-    async delete(@Param('id') id: string): Promise<void> {
+    async delete(@Param('id') id: number): Promise<void> {
         return this.employeesService.delete(id);
     }
 }

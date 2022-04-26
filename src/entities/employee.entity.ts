@@ -20,8 +20,8 @@ export class Employee {
     office: string;
 
     @ApiProperty()
-    @Column()
-    birthday: Date;
+    @Column({ type: 'date' })
+    birthday: string | Date;
 
     @ApiProperty()
     @Column()
