@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
-import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CreateEmployeeDto } from 'src/dto/create-employee.dto';
 import { QueryEmployeeDto } from 'src/dto/query-employee.dto';
 import { UpdateEmployeeDto } from 'src/dto/update-employee.dto';
@@ -12,6 +12,7 @@ export class EmployeesController {
     constructor(private readonly employeesService: EmployeesService) { }
 
     @ApiCreatedResponse({ type: Employee })
+    @ApiBadRequestResponse()
     @Post()
     async create(@Body() { name, cpf, office, birthday }: CreateEmployeeDto): Promise<Employee> {
         const result = await this.employeesService.create({
@@ -47,6 +48,7 @@ export class EmployeesController {
     }
 
     @ApiOkResponse({ type: Employee })
+    @ApiNotFoundResponse()
     @Get(':id')
     async findOne(@Param('id') id: string): Promise<Employee> {
         const result = await this.employeesService.findOne(id);
@@ -62,6 +64,8 @@ export class EmployeesController {
     }
 
     @ApiOkResponse({ type: Employee })
+    @ApiBadRequestResponse()
+    @ApiNotFoundResponse()
     @Put(':id')
     async update(@Param('id') id: string, @Body() { name, cpf, office, birthday, situation }: UpdateEmployeeDto): Promise<Employee> {
         const result = await this.employeesService.update(id, { name, cpf, office, birthday, situation });
@@ -76,7 +80,8 @@ export class EmployeesController {
         };
     }
 
-    @ApiNoContentResponse()
+    @ApiNoContentResponse({ description: 'If the opereation was successful the response will be an empty body' })
+    @ApiNotFoundResponse()
     @Delete(':id')
     @HttpCode(204)
     async delete(@Param('id') id: string): Promise<void> {
