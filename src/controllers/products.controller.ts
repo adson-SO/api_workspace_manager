@@ -1,9 +1,9 @@
 import { Body, Controller, Get, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { CreateProductDto } from 'src/dto/create-product.dto';
-import { QueryProductDto } from 'src/dto/query-product.dto';
-import { Product } from 'src/entities/product.entity';
-import { ProductsService } from 'src/services/products.service';
+import { CreateProductDto } from '../dto/create-product.dto';
+import { QueryProductDto } from '../dto/query-product.dto';
+import { Product } from '../entities/product.entity';
+import { ProductsService } from '../services/products.service';
 
 
 @ApiTags('Products')

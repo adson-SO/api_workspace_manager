@@ -75,13 +75,17 @@ describe('EmployeeController (e2e)', () => {
         expect(result.statusCode).toBe(400);
     });
 
-    it('should not register an employee who is under 18 years old', async () => {
+    it('should not register a new employee with a duplicated cpf', async () => {
         const employee = {
             name: 'Adson Sousa',
-            cpf: '12345678910',
+            cpf: '12345678909',
             office: 'vendedor',
-            birthday: '04/28/2004'
+            birthday: '03/27/2002'
         };
+
+        await request(app.getHttpServer())
+            .post('/api/v1/employee')
+            .send(employee);
 
         const result = await request(app.getHttpServer())
             .post('/api/v1/employee')
@@ -90,12 +94,12 @@ describe('EmployeeController (e2e)', () => {
         expect(result.statusCode).toBe(400);
     });
 
-    it('should only register an employee as vendedor, caixa or gerente', async () => {
+    it('should not register an employee who is under 18 years old', async () => {
         const employee = {
             name: 'Adson Sousa',
-            cpf: '12345678910',
-            office: 'faxineiro',
-            birthday: '03/27/2002'
+            cpf: '12345678909',
+            office: 'vendedor',
+            birthday: '04/28/2004'
         };
 
         const result = await request(app.getHttpServer())

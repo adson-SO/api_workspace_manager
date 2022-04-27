@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductsController } from 'src/controllers/products.controller';
-import { EmployeesModule } from 'src/employees/employees.module';
-import { Employee } from 'src/entities/employee.entity';
-import { Product } from 'src/entities/product.entity';
-import { EmployeesService } from 'src/services/employees.service';
+import { ProductsController } from '../controllers/products.controller';
+import { Employee } from '../entities/employee.entity';
+import { Product } from '../entities/product.entity';
 import { ProductsService } from '../services/products.service';
 
 @Module({
