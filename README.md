@@ -217,3 +217,10 @@ http://localhost:3000/api/v1/employee?name=notebook+lenovo
 
 http://localhost:3000/api/v1/employee?category=eletronico
 ```
+
+## Swagger
+
+Para acessar o swagger da API, com a aplicação rodando, acesse esta url:
+```
+http://localhost:3000/api/v1/api-docs
+```
