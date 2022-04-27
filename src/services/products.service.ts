@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProductDto } from 'src/dto/create-product.dto';
 import { QueryProductDto } from 'src/dto/query-product.dto';
@@ -15,6 +15,11 @@ export class ProductsService {
 
     async create({ name, category, price, employee_id }: CreateProductDto): Promise<Product> {
         const employee = await this.employeesRepository.findOne(employee_id);
+
+        if(!employee) {
+            throw new NotFoundException('This employee does not exist');
+        }
+        
         if(employee.office !== 'gerente' || employee.situation !== 'activate') {
             throw new BadRequestException('You must be an active manager to register a new product');
         }
