@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateEmployeeDto } from 'src/dto/create-employee.dto';
-import { QueryEmployeeDto } from 'src/dto/query-employee.dto';
-import { UpdateEmployeeDto } from 'src/dto/update-employee.dto';
-import { Employee } from 'src/entities/employee.entity';
+import { CreateEmployeeDto } from '../dto/create-employee.dto';
+import { QueryEmployeeDto } from '../dto/query-employee.dto';
+import { UpdateEmployeeDto } from '../dto/update-employee.dto';
+import { Employee } from '../entities/employee.entity';
 import { Like, Repository } from 'typeorm';
 import { Helpers } from '../helpers/helpers';
 

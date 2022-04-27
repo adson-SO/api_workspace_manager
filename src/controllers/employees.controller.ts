@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { CreateEmployeeDto } from 'src/dto/create-employee.dto';
-import { QueryEmployeeDto } from 'src/dto/query-employee.dto';
-import { UpdateEmployeeDto } from 'src/dto/update-employee.dto';
-import { Employee } from 'src/entities/employee.entity';
-import { EmployeesService } from 'src/services/employees.service';
+import { CreateEmployeeDto } from '../dto/create-employee.dto';
+import { QueryEmployeeDto } from '../dto/query-employee.dto';
+import { UpdateEmployeeDto } from '../dto/update-employee.dto';
+import { Employee } from '../entities/employee.entity';
+import { EmployeesService } from '../services/employees.service';
 
 @ApiTags('Employees')
 @Controller('api/v1/employee')
