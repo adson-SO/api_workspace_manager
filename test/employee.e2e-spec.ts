@@ -4,12 +4,10 @@ import * as request from 'supertest';
 import { EmployeesModule } from '../src/employees/employees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Employee } from '../src/entities/employee.entity';
-import { EmployeesService } from '../src/services/employees.service';
 import { Repository } from 'typeorm';
 
 describe('EmployeeController (e2e)', () => {
     let app: INestApplication;
-    let employeesService: EmployeesService;
     let employeeRepository: Repository<Employee>;
 
     beforeAll(async () => {
@@ -29,7 +27,6 @@ describe('EmployeeController (e2e)', () => {
         app = moduleFixture.createNestApplication();
         await app.init();
         employeeRepository = moduleFixture.get('EmployeeRepository');
-        employeesService = new EmployeesService(employeeRepository);
     });
 
     afterAll(async () => {
