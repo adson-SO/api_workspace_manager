@@ -43,85 +43,31 @@ describe('EmployeeController (e2e)', () => {
                 office: 'vendedor',
                 birthday: '2002/03/27'
             });
-    })
+    });
 
     afterEach(async () => {
         await employeeRepository.query('DELETE FROM employees');
     });
 
-    it('should register a new employee', async () => {
-        const employee = {
-            name: 'Adson Sousa',
-            cpf: '12345678909',
-            office: 'vendedor',
-            birthday: '2002/03/27'
-        };
-
+    it('should return an employee by its id', async () => {
         const result = await request(app.getHttpServer())
-            .post(path)
-            .send(employee);
+            .get(`${path}/1`);
 
-        expect(result.statusCode).toBe(201);
+        expect(result.statusCode).toBe(200);
         expect(result.body).toStrictEqual({
-            employee_id: 2,
+            employee_id: 1,
             name: 'Adson Sousa',
-            cpf: '123.456.789-09',
+            cpf: '223.258.290-65',
             office: 'vendedor',
             birthday: '2002/03/27',
             situation: 'activate'
         });
     });
 
-    it('should not register an employee with invalid cpf', async () => {
-        const employee = {
-            name: 'Adson Sousa',
-            cpf: '12345678910',
-            office: 'vendedor',
-            birthday: '2002/03/27'
-        };
-
+    it('should not return an employee if the id does not exist', async () => {
         const result = await request(app.getHttpServer())
-            .post(path)
-            .send(employee);
+            .get(`${path}/3`)
 
-        expect(result.statusCode).toBe(400);
-    });
-
-    it('should not register a new employee with a duplicated cpf', async () => {
-        const employee = {
-            name: 'Adson Sousa',
-            cpf: '12345678909',
-            office: 'vendedor',
-            birthday: '2002/03/27'
-        };
-
-        await request(app.getHttpServer())
-            .post(path)
-            .send(employee);
-
-        const result = await request(app.getHttpServer())
-            .post(path)
-            .send(employee);
-
-        expect(result.statusCode).toBe(400);
-    });
-
-    it('should not register an employee who is under 18 years old', async () => {
-        const tomorrow = new Date();
-
-        tomorrow.setDate(tomorrow.getDate() + 1);
-
-        const employee = {
-            name: 'Adson Sousa',
-            cpf: '12345678909',
-            office: 'vendedor',
-            birthday: tomorrow
-        };
-
-        const result = await request(app.getHttpServer())
-            .post(path)
-            .send(employee);
-
-        expect(result.statusCode).toBe(400);
+        expect(result.statusCode).toBe(404);
     });
 });
