@@ -62,7 +62,7 @@ export class Helpers {
 
     static ageValidator(date: Date): boolean {
         const today = new Date();
-        const birthdate = date;
+        const birthdate = new Date(date);
 
         const currentYear = today.getFullYear();
         const birthYear = birthdate.getFullYear();
