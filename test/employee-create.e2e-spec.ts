@@ -95,11 +95,15 @@ describe('EmployeeController (e2e)', () => {
     });
 
     it('should not register an employee who is under 18 years old', async () => {
+        const tomorrow = new Date();
+
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
         const employee = {
             name: 'Adson Sousa',
             cpf: '12345678909',
             office: 'vendedor',
-            birthday: '04/28/2004'
+            birthday: tomorrow
         };
 
         const result = await request(app.getHttpServer())
