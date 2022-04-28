@@ -1,29 +1,29 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateEmployeeDto } from '../dto/create-employee.dto';
-import { QueryEmployeeDto } from '../dto/query-employee.dto';
-import { UpdateEmployeeDto } from '../dto/update-employee.dto';
+import { CreateEmployeeDto } from '../dto/employees/create-employee.dto';
+import { QueryEmployeeDto } from '../dto/employees/query-employee.dto';
+import { UpdateEmployeeDto } from '../dto/employees/update-employee.dto';
 import { Employee } from '../entities/employee.entity';
 import { Like, Repository } from 'typeorm';
 import { Helpers } from '../helpers/helpers';
 
 @Injectable()
 export class EmployeesService {
-    constructor(@InjectRepository(Employee) private employeesRepository: Repository<Employee>) {}
+    constructor(@InjectRepository(Employee) private employeesRepository: Repository<Employee>) { }
 
     async create({ name, cpf, office, birthday }: CreateEmployeeDto): Promise<Employee> {
         const isCpfValid = Helpers.validateCpf(cpf);
-        if(isCpfValid === false) {
+        if (isCpfValid === false) {
             throw new BadRequestException('Invalid CPF');
         }
 
         const cpfExists = await this.employeesRepository.findOne({ cpf: cpf });
-        if(cpfExists) {
+        if (cpfExists) {
             throw new BadRequestException('CPF already exists');
         }
 
         const isOver18 = Helpers.ageValidator(birthday);
-        if(!isOver18) {
+        if (!isOver18) {
             throw new BadRequestException('You must be over 18 years old');
         }
 
@@ -36,14 +36,14 @@ export class EmployeesService {
     }
 
     async findAll(query: QueryEmployeeDto): Promise<Employee[]> {
-        if(Object.keys(query).length === 0) {
+        if (Object.keys(query).length === 0) {
             query = {};
         }
 
-        if(query.name) {
-            Object.assign(query, { name: Like('%'+query.name+'%') })
+        if (query.name) {
+            Object.assign(query, { name: Like('%' + query.name + '%') })
         }
-        
+
         const employees = await this.employeesRepository.find({
             where: query
         });
@@ -56,7 +56,7 @@ export class EmployeesService {
     async findOne(id: number): Promise<Employee> {
         const employee = await this.employeesRepository.findOne(id);
 
-        if(!employee) {
+        if (!employee) {
             throw new NotFoundException();
         }
 
@@ -67,19 +67,29 @@ export class EmployeesService {
 
     async update(id: number, { name, cpf, office, birthday, situation }: UpdateEmployeeDto): Promise<Employee> {
         const employee = await this.employeesRepository.findOne(id);
-        if(!employee) {
+        if (!employee) {
             throw new NotFoundException();
         }
 
-        const cpfExists = await this.employeesRepository.findOne({ cpf: cpf });
-        if(cpfExists) {
-            throw new BadRequestException('CPF already exists');
+        if (cpf) {
+            const isCpfValid = Helpers.validateCpf(cpf);
+            if (isCpfValid === false) {
+                throw new BadRequestException('Invalid CPF');
+            }
+
+            const cpfExists = await this.employeesRepository.findOne({ cpf: cpf });
+            if (cpfExists) {
+                throw new BadRequestException('CPF already exists');
+            }
         }
 
-        const isOver18 = Helpers.ageValidator(birthday);
-        if(!isOver18) {
-            throw new BadRequestException('You must be over 18 years old');
+        if (birthday) {
+            const isOver18 = Helpers.ageValidator(birthday);
+            if (!isOver18) {
+                throw new BadRequestException('You must be over 18 years old');
+            }
         }
+
 
         employee.name = name ? name : employee.name;
         employee.cpf = cpf ? cpf : employee.cpf;
