@@ -58,10 +58,10 @@ Exemplo de payload:
     "name": "Ricardo Oliveira",
     "cpf": "18463838030",
     "office": "vendedor",
-    "birthday": "05/17/1994"
+    "birthday": "1994/05/17"
 }
 ```
-(Observação: por enquanto a aplicação aceita datas apenas no formato MM/DD/YYYY)
+(Observação: por enquanto a aplicação aceita datas apenas no formato YYYY/MM/DD)
 
 Exemplo de resposta:
 
@@ -138,7 +138,7 @@ Exemplo de payload:
     "situation": "deactivate"
 }
 ```
-(Observação: por enquanto a aplicação aceita datas apenas no formato MM/DD/YYYY)
+(Observação: por enquanto a aplicação aceita datas apenas no formato YYYY/MM/DD)
 
 Exemplo de resposta:
 
