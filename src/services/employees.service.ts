@@ -23,7 +23,7 @@ export class EmployeesService {
         }
 
         const isOver18 = Helpers.ageValidator(birthday);
-        if (!isOver18) {
+        if (isOver18 === false) {
             throw new BadRequestException('You must be over 18 years old');
         }
 
