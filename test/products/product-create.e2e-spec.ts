@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { EmployeesModule } from '../src/employees/employees.module';
+import { EmployeesModule } from '../../src/employees/employees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Employee } from '../src/entities/employee.entity';
+import { Employee } from '../../src/entities/employee.entity';
 import { Repository } from 'typeorm';
-import { Product } from '../src/entities/product.entity';
-import { ProductsModule } from '../src/products/products.module';
+import { Product } from '../../src/entities/product.entity';
+import { ProductsModule } from '../../src/products/products.module';
 
 describe('EmployeeController (e2e)', () => {
     let app: INestApplication;
@@ -46,7 +46,7 @@ describe('EmployeeController (e2e)', () => {
                 name: 'Adson Sousa',
                 cpf: '12345678909',
                 office: 'gerente',
-                birthday: '03/27/2002'
+                birthday: '2002/03/27'
             });
 
         await request(app.getHttpServer())
@@ -55,7 +55,7 @@ describe('EmployeeController (e2e)', () => {
                 name: 'Adson Sousa',
                 cpf: '34118766035',
                 office: 'vendedor',
-                birthday: '03/27/2002'
+                birthday: '2002/03/27'
             });
     })
 
@@ -90,7 +90,7 @@ describe('EmployeeController (e2e)', () => {
             name: 'Notebook Dell',
             category: 'Eletrônico',
             price: 3000.50,
-            employee_id: 10
+            employee_id: 3
         }
 
         const result = await request(app.getHttpServer())

@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { EmployeesModule } from '../src/employees/employees.module';
+import { EmployeesModule } from '../../src/employees/employees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Employee } from '../src/entities/employee.entity';
+import { Employee } from '../../src/entities/employee.entity';
 import { Repository } from 'typeorm';
 
 describe('EmployeeController (e2e)', () => {
