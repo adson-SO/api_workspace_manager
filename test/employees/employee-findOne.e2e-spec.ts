@@ -66,7 +66,7 @@ describe('EmployeeController (e2e)', () => {
 
     it('should not return an employee if the id does not exist', async () => {
         const result = await request(app.getHttpServer())
-            .get(`${path}/3`)
+            .get(`${path}/3`);
 
         expect(result.statusCode).toBe(404);
     });
